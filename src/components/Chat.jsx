@@ -1,8 +1,11 @@
-import { useUser } from '../context/UserContext';
-import { useState } from 'react';
+// src/Chat.jsx
+import React, { useState } from 'react';
+import { useUser } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Chat = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
 
@@ -13,9 +16,13 @@ const Chat = () => {
     }
   };
 
+  const handleBackToRegister = () => {
+    navigate('/register');
+  };
+
   return (
-    <div className="h-screen flex">
-      <div className="h-10 w-48 bg-blue-600 text-white flex items-center justify-center text-xl font-bold shadow-lg">
+    <div className="h-screen flex relative">
+      <div className="w-48 bg-blue-600 text-white flex items-center justify-center text-xl font-bold rounded-r-3xl shadow-lg">
         Group 80
       </div>
 
@@ -43,6 +50,14 @@ const Chat = () => {
           </button>
         </div>
       </div>
+
+      {/* Floating Button */}
+      <button
+        onClick={handleBackToRegister}
+        className="absolute bottom-4 left-4 bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-blue-700 transition"
+      >
+        +
+      </button>
     </div>
   );
 };
